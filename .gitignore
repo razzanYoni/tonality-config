@@ -1,2 +1,2 @@
-# IDE Configurations
-.idea
+# Environment variable file
+env/*.env
