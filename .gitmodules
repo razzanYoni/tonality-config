@@ -1,0 +1,12 @@
+[submodule "tonality-client"]
+	path = tonality-client
+	url = https://github.com/noelsimbolon/tonality-client.git
+[submodule "tonality-plain"]
+	path = tonality-plain
+	url = https://github.com/noelsimbolon/tonality-plain.git
+[submodule "tonality-rest"]
+	path = tonality-rest
+	url = https://github.com/noelsimbolon/tonality-rest.git
+[submodule "tonality-soap"]
+	path = tonality-soap
+	url = https://github.com/noelsimbolon/tonality-soap.git
