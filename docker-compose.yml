@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  tonality-client:
+    container_name: tonality-client
+    build:
+      context: ../tonality-client
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+
+  tonality-rest:
+    container_name: tonality-rest
+    build:
+      context: ../tonality-rest
+      dockerfile: Dockerfile
+    env_file:
+      - env/tonality-rest.env
+    ports:
+      - "8001:3001"
+    depends_on:
+      tonality-rest-db:
+        condition: service_healthy
+    networks:
+      - backend
+
+  tonality-rest-db:
+    container_name: tonality-rest-db
+    hostname: tonality-rest-db
+    image: postgres:15.4-alpine
+    env_file:
+      - env/tonality-rest-db.env
+    healthcheck:
+      test: pg_isready
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    ports:
+      - "8002:5432"
+    networks:
+      - backend
+
+networks:
+  backend:
