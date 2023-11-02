@@ -17,6 +17,8 @@ services:
       - env/tonality-rest.env
     ports:
       - "8001:3001"
+    volumes:
+      - ../tonality-rest/src:/app/src  # Mount source code into container (for development only)
     depends_on:
       tonality-rest-db:
         condition: service_healthy
