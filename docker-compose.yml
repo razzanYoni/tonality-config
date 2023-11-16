@@ -49,6 +49,7 @@ services:
     build:
       context: ../tonality-soap
       dockerfile: Dockerfile
+    restart: always
     env_file:
       - env/tonality-soap.env
     ports:
@@ -93,6 +94,8 @@ services:
     image: mysql:8.2.0
     env_file:
       - env/tonality-plain-db.env
+    volumes:
+      - ../tonality-plain/migrations/tonality.sql:/docker-entrypoint-initdb.d/tonality.sql:ro
     ports:
       - "8006:3306"
     networks:
