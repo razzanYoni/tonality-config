@@ -83,8 +83,8 @@ services:
     ports:
       - "8005:80"
     volumes:
-      - .:/var/www/html  # Mount source code into the container (for development only)
-      - ./storage:/var/www/html/storage  # Map storage directory to a volume
+      - ../tonality-plain:/var/www/html  # Mount source code into the container (for development only)
+      - ../tonality-plain/storage:/var/www/html/storage  # Map storage directory to a volume
     depends_on:
       - tonality-plain-db
     networks:
