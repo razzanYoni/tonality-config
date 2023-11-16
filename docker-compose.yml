@@ -2,6 +2,7 @@ version: '3.8'
 services:
   tonality-client:
     container_name: tonality-client
+    hostname: tonality-client
     build:
       context: ../tonality-client
       dockerfile: Dockerfile
@@ -10,6 +11,7 @@ services:
 
   tonality-rest:
     container_name: tonality-rest
+    hostname: tonality-rest
     build:
       context: ../tonality-rest
       dockerfile: Dockerfile
@@ -18,7 +20,7 @@ services:
     ports:
       - "8001:3001"
     volumes:
-      - ../tonality-rest/src:/app/src  # Mount source code into container (for development only)
+      - ../tonality-rest/src:/tonality/tonality-rest/src  # Mount source code into container (for development only)
     depends_on:
       tonality-rest-db:
         condition: service_healthy
@@ -38,6 +40,32 @@ services:
       retries: 10
     ports:
       - "8002:5432"
+    networks:
+      - backend
+
+  tonality-soap:
+    container_name: tonality-soap
+    hostname: tonality-soap
+    build:
+      context: ../tonality-soap
+      dockerfile: Dockerfile
+    env_file:
+      - env/tonality-soap.env
+    ports:
+      - "8003:8888"
+    volumes:
+      - ../tonality-soap/src:/tonality/tonality-soap/src  # Mount source code into container (for development only)
+    networks:
+      - backend
+
+  tonality-soap-db:
+    container_name: tonality-soap-db
+    hostname: tonality-soap-db
+    image: mysql:8.2.0
+    env_file:
+      - env/tonality-soap-db.env
+    ports:
+      - "8004:3306"
     networks:
       - backend
 
