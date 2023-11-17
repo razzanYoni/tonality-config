@@ -7,7 +7,9 @@ services:
       context: ../tonality-client
       dockerfile: Dockerfile
     ports:
-      - "8000:80"
+      - "8000:5173"
+    depends_on:
+      - tonality-rest
 
   tonality-rest:
     container_name: tonality-rest
